@@ -3,10 +3,12 @@ import Link from "next/link";
 export default function Sidebar() { 
     return (
       <aside className="w-60 p-6 bg-green-950 flex flex-col text-white">
-        <div className="mb-5 text-xl pb-45 font-bold tracking-wide">
-          College Suite
-        </div>
-
+            <Link 
+              href="/"
+              className="mb-5 text-xl pb-45 font-bold tracking-wide"
+            >
+              College Suite
+            </Link>
             <ul className="space-y-4 text-lg">
           <li className="flex my-10">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
