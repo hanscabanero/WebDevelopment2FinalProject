@@ -7,7 +7,7 @@ export default function TaskList({ tasks, onRemove }) {
         <p className="text-gray-500">No tasks added.</p>
       )}
 
-      <ul className="space-y-4">
+      <ul className="space-y-4 max-h-96 overflow-y-auto pr-2">
         {tasks.map((task, index) => (
           <li
             key={task.id}
@@ -32,8 +32,7 @@ export default function TaskList({ tasks, onRemove }) {
               <button
                 onClick={() => {
                   task.completed = !task.completed;
-                  // force component update (not ideal long-term)
-                  onRemove(-1); 
+                  onRemove(-1);
                 }}
                 className="text-green-600 hover:text-green-800"
               >

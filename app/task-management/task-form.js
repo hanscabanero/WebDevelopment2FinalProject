@@ -9,7 +9,7 @@ export default function TaskForm({ onAdd }) {
     priority: "medium",
   });
 
-  const categories = ["School", "Personal", "Important"];
+  const categories = ["School", "Personal", "Important", "Holiday", "Work"];
 
   const submit = (e) => {
     e.preventDefault();
