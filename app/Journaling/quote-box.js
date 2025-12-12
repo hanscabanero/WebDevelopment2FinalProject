@@ -11,7 +11,7 @@ export default function QuoteBox() {
     const today = new Date().toDateString();
 
     //caching fucntionality
-    // If we already have today's quote → use it
+    // If we already have today's quote use it
     if (cached && cachedDate === today) {
       setQuote(cached);
       return;

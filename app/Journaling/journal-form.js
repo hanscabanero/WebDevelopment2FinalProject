@@ -6,7 +6,6 @@ export default function JournalForm({ onAdd, onUpdate, editingEntry }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  // If editing, preload values
   useEffect(() => {
     if (editingEntry) {
       setTitle(editingEntry.title);
@@ -26,9 +25,9 @@ export default function JournalForm({ onAdd, onUpdate, editingEntry }) {
     };
 
     if (editingEntry) {
-      onUpdate(entry);     // ✔ Update existing
+      onUpdate(entry);
     } else {
-      onAdd(entry);        // ✔ Add new
+      onAdd(entry);
     }
 
     setTitle("");

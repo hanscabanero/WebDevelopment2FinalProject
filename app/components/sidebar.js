@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Sidebar() { 
     return (
-      <aside className="w-60 p-6 bg-green-950 flex flex-col text-white">
+      <aside className="w-60 p-6 bg-green-950 flex flex-col text-white flex-shrink-0">
             <Link 
               href="/"
               className="mb-5 text-xl pb-45 font-bold tracking-wide"
@@ -37,7 +37,7 @@ export default function Sidebar() {
               <path strokeLinecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
             </svg>
             <Link
-              href="/journaling"
+              href="/Journaling"
               className="hover:text-gray-200 mx-5"
             >
               Journaling

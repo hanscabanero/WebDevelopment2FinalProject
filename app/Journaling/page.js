@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import JournalForm from "./journal-form";
 import QuoteBox from "./quote-box";
 import JournalList from "./journal-list";
+import Sidebar from "../components/sidebar";
 
 export default function JournalingSystem() {
   const [entries, setEntries] = useState([]);
@@ -34,6 +35,9 @@ export default function JournalingSystem() {
   };
 
   return (
+  <div className="min-h-screen flex">
+    <Sidebar />
+
     <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
@@ -52,5 +56,6 @@ export default function JournalingSystem() {
 
       </div>
     </div>
+  </div>
   );
 }
