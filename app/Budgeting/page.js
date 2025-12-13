@@ -5,6 +5,7 @@ import TransactionForm from "./transaction";
 import BudgetSummary from "./summary";
 import SpendingChart from "./spending-chart";
 import TransactionList from "./edit-transaction";
+import Sidebar from "../components/sidebar";
 
 export default function BudgetingSystem() {
   const [transactions, setTransactions] = useState([]);
@@ -15,6 +16,8 @@ export default function BudgetingSystem() {
   };
 
   return (
+    <div className="min-h-screen flex">
+    <Sidebar />
     <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
       <div className="grid lg:grid-cols-[60%_40%] gap-4">
         <TransactionForm onAdd={addTransaction} />
@@ -27,6 +30,7 @@ export default function BudgetingSystem() {
         <TransactionList transactions={transactions} onRemove={removeTransaction} />
         <SpendingChart transactions={transactions} />
       </div>
+    </div>
     </div>
   );
 }
