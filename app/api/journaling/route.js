@@ -4,7 +4,7 @@ import path from "path";
 // Absolute path to data/journals.json
 const filePath = path.join(process.cwd(), "data", "journals.json");
 
-// GET → return all journal entries
+// GET return all journal entries
 export async function GET() {
   try {
     const file = await fs.readFile(filePath, "utf8");
@@ -16,7 +16,7 @@ export async function GET() {
   }
 }
 
-// POST → add a new journal entry
+// POST add a new journal entry
 export async function POST(req) {
   try {
     const { title, content } = await req.json();

@@ -9,25 +9,25 @@ export default function JournalingSystem() {
   const [entries, setEntries] = useState([]);
   const [editingEntry, setEditingEntry] = useState(null);
 
-  // Load from localStorage (UNCHANGED)
+  // Load from localStorage 
   useEffect(() => {
     const saved = localStorage.getItem("journalEntries");
     if (saved) setEntries(JSON.parse(saved));
   }, []);
 
-  // Save entries to localStorage on change (UNCHANGED)
+  // Save entries to localStorage on change 
   useEffect(() => {
     localStorage.setItem("journalEntries", JSON.stringify(entries));
   }, [entries]);
 
-  // Add new entry (NOW ALSO SAVES TO JSON FILE)
+  // Add new entry 
   const addEntry = async (entry) => {
     const newEntry = { id: Date.now(), ...entry };
 
-    // ✅ Keep existing UI behavior
+    // Keep existing UI behavior
     setEntries((prev) => [newEntry, ...prev]);
 
-    // ✅ ALSO save to local JSON file via API
+    // ALSO save to local JSON file via API
     try {
       await fetch("/api/journaling", {
         method: "POST",
@@ -42,7 +42,7 @@ export default function JournalingSystem() {
     }
   };
 
-  // Update existing entry (UNCHANGED)
+  // Update existing entry 
   const updateEntry = (updated) => {
     setEntries((prev) =>
       prev.map((e) => (e.id === updated.id ? updated : e))
