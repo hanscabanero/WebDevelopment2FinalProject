@@ -6,7 +6,6 @@ import TaskSummary from "./task-summary";
 import TaskList from "./task-list.js";
 import Sidebar from "../components/sidebar.js";
 import TaskCalendar from "./task-calendar.js";
-import Protected from "../components/Protected";
 
 export default function TaskManagementSystem() {
   const [tasks, setTasks] = useState([]);
@@ -59,7 +58,6 @@ export default function TaskManagementSystem() {
   }, []);
 
   return (
-    <Protected>
     <div className="min-h-screen flex">
       <Sidebar />
       <div className="flex-1 bg-linear-to-br from-slate-100 to-slate-200 p-8">
@@ -71,6 +69,5 @@ export default function TaskManagementSystem() {
         </div>
       </div>
     </div>
-    </Protected>
   );
 }
