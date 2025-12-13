@@ -9,25 +9,29 @@ export default function JournalingSystem() {
   const [entries, setEntries] = useState([]);
   const [editingEntry, setEditingEntry] = useState(null);
 
-  // Load from localStorage 
+  // 🔹 LOAD journals from JSON file via API
   useEffect(() => {
-    const saved = localStorage.getItem("journalEntries");
-    if (saved) setEntries(JSON.parse(saved));
-  }, []);
+    async function loadJournals() {
+      try {
+        const res = await fetch("/api/journaling");
+        const data = await res.json();
+        setEntries(data);
+      } catch (err) {
+        console.error("Failed to load journals", err);
+      }
+    }
 
-  // Save entries to localStorage on change 
-  useEffect(() => {
-    localStorage.setItem("journalEntries", JSON.stringify(entries));
-  }, [entries]);
+    loadJournals();
+  }, []);
 
   // Add new entry 
   const addEntry = async (entry) => {
     const newEntry = { id: Date.now(), ...entry };
 
-    // Keep existing UI behavior
+    // Update UI immediately
     setEntries((prev) => [newEntry, ...prev]);
 
-    // ALSO save to local JSON file via API
+    // Save to JSON file
     try {
       await fetch("/api/journaling", {
         method: "POST",
@@ -38,7 +42,7 @@ export default function JournalingSystem() {
         }),
       });
     } catch (err) {
-      console.error("Failed to save journal to JSON file", err);
+      console.error("Failed to save journal", err);
     }
   };
 
@@ -54,17 +58,17 @@ export default function JournalingSystem() {
     <div className="min-h-screen flex">
       <Sidebar />
 
-      <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
+      <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          <JournalForm 
-            onAdd={addEntry} 
+
+          <JournalForm
+            onAdd={addEntry}
             onUpdate={updateEntry}
             editingEntry={editingEntry}
           />
 
-          <JournalList 
-            entries={entries} 
+          <JournalList
+            entries={entries}
             onEdit={setEditingEntry}
           />
 
