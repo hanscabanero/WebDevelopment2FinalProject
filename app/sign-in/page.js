@@ -25,14 +25,11 @@ export default function SignInPage() {
   if (user === undefined) return null;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-900 to-green-950">
+    <main className="flex min-h-screen items-center justify-center bg-green-900">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center">
         <h1 className="text-3xl font-bold text-green-900 mb-2">
           Welcome to College Suite
         </h1>
-        <p className="text-gray-600 mb-8">
-          Sign in to manage your budget, tasks, and journal in one place.
-        </p>
 
         <button
           onClick={handleLogin}
@@ -48,10 +45,6 @@ export default function SignInPage() {
           </svg>
           Sign in with GitHub
         </button>
-
-        <p className="text-sm text-gray-500 mt-6">
-          Secure authentication powered by GitHub
-        </p>
       </div>
     </main>
   );
