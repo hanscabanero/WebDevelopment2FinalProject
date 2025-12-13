@@ -60,7 +60,7 @@ export default function TaskManagementSystem() {
   return (
     <div className="min-h-screen flex">
       <Sidebar />
-      <div className="flex-1 bg-gradient-to-br from-slate-100 to-slate-200 p-8">
+      <div className="flex-1 bg-linear-to-br from-slate-100 to-slate-200 p-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <TaskSummary tasks={tasks} />
           <TaskForm onAdd={addTask} />

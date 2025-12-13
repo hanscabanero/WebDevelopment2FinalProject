@@ -26,9 +26,6 @@ export default function SpendingChart({ transactions }) {
 
   return (
     <div className="bg-linear-to-br from-purple-50 to-slate-100 p-6 rounded-xl shadow-md border border-slate-200">
-      <h2 className="text-2xl font-bold text-slate-800 mb-4">
-        Expense Breakdown
-      </h2>
 
       <div className="w-full h-72 overflow-hidden">
         <ResponsiveContainer width="100%" height="100%">

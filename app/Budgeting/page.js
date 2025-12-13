@@ -17,20 +17,19 @@ export default function BudgetingSystem() {
 
   return (
     <div className="min-h-screen flex">
-    <Sidebar />
-    <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
-      <div className="grid lg:grid-cols-[60%_40%] gap-4">
-        <TransactionForm onAdd={addTransaction} />
+      <Sidebar />
 
-        <BudgetSummary transactions={transactions} />
-
+      <div className="flex-1 min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <TransactionForm onAdd={addTransaction} />
+          <BudgetSummary transactions={transactions} />
+          <SpendingChart transactions={transactions} />
+          <TransactionList
+            transactions={transactions}
+            onRemove={removeTransaction}
+          />
+        </div>
       </div>
-
-      <div className="grid lg:grid-cols-[40%_60%] gap-4 mt-4">
-        <TransactionList transactions={transactions} onRemove={removeTransaction} />
-        <SpendingChart transactions={transactions} />
-      </div>
-    </div>
     </div>
   );
 }
