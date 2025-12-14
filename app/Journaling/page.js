@@ -1,64 +1,54 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import JournalForm from "./journal-form";
-import QuoteBox from "./quote-box";
 import JournalList from "./journal-list";
+import QuoteBox from "./quote-box";
 import Sidebar from "../components/sidebar";
 
 export default function JournalingSystem() {
-  const [entries, setEntries] = useState([]);
+  // Load journals from localStorage
+  const [entries, setEntries] = useState(() => {
+    if (typeof window === "undefined") return [];
+    const stored = localStorage.getItem("journalEntries");
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const [editingEntry, setEditingEntry] = useState(null);
 
-  // LOAD journals from JSON file via API
+  // Persist journals to localStorage
   useEffect(() => {
-    async function loadJournals() {
-      try {
-        const res = await fetch("/api/journaling");
-        const data = await res.json();
-        setEntries(data);
-      } catch (err) {
-        console.error("Failed to load journals", err);
-      }
-    }
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
+  }, [entries]);
 
-    loadJournals();
-  }, []);
+  // add new journal entry
+  const addEntry = (entry) => {
+    const newEntry = {
+      id: Date.now(),
+      title: entry.title,
+      content: entry.content,
+      datetime: new Date().toLocaleString(),
+    };
 
-  // Add new entry 
-  const addEntry = async (entry) => {
-    const newEntry = { id: Date.now(), ...entry };
-
-    // Update UI immediately
-    setEntries((prev) => [newEntry, ...prev]);
-
-    // Save to JSON file
-    try {
-      await fetch("/api/journaling", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: newEntry.title,
-          content: newEntry.content,
-        }),
-      });
-    } catch (err) {
-      console.error("Failed to save journal", err);
-    }
+    setEntries([newEntry, ...entries]);
   };
 
-  // Update existing entry 
+  // update existing journal entry
   const updateEntry = (updated) => {
-    setEntries((prev) =>
-      prev.map((e) => (e.id === updated.id ? updated : e))
-    );
+    setEntries(entries.map(e => (e.id === updated.id ? updated : e)));
     setEditingEntry(null);
+  };
+
+  // delete journal entry
+  const deleteEntry = (id) => {
+    setEntries(entries.filter(e => e.id !== id));
   };
 
   return (
     <div className="min-h-screen flex">
       <Sidebar />
 
-      <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8 w-full">
+      <div className="flex-1 min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           <JournalForm
@@ -70,6 +60,7 @@ export default function JournalingSystem() {
           <JournalList
             entries={entries}
             onEdit={setEditingEntry}
+            onDelete={deleteEntry}
           />
 
           <QuoteBox />
