@@ -10,6 +10,9 @@ export default function JournalForm({ onAdd, onUpdate, editingEntry }) {
     if (editingEntry) {
       setTitle(editingEntry.title);
       setContent(editingEntry.content);
+    } else {
+      setTitle("");
+      setContent("");
     }
   }, [editingEntry]);
 
