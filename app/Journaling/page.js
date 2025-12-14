@@ -9,7 +9,7 @@ export default function JournalingSystem() {
   const [entries, setEntries] = useState([]);
   const [editingEntry, setEditingEntry] = useState(null);
 
-  // 🔹 LOAD journals from JSON file via API
+  // LOAD journals from JSON file via API
   useEffect(() => {
     async function loadJournals() {
       try {
