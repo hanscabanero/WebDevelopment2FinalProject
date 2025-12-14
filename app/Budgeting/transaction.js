@@ -41,7 +41,6 @@ export default function TransactionForm({ onAdd }) {
       <h2 className="text-2xl font-bold text-slate-800 mb-4">Add Transaction</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Type */}
         <select
           className="w-full border border-slate-300 bg-white rounded-lg p-2 shadow-sm"
           value={type}
@@ -51,7 +50,6 @@ export default function TransactionForm({ onAdd }) {
           <option value="expense">Expense</option>
         </select>
 
-        {/* Amount */}
         <input
           type="number"
           min="0"
@@ -62,7 +60,6 @@ export default function TransactionForm({ onAdd }) {
           onChange={(e) => setAmount(e.target.value)}
         />
 
-        {/* Category */}
         {type === "expense" && (
           <select
             className="w-full border border-slate-300 bg-white rounded-lg p-2 shadow-sm"
@@ -78,7 +75,6 @@ export default function TransactionForm({ onAdd }) {
           </select>
         )}
 
-        {/* Error */}
         {error && (
           <p className="text-red-600 font-medium text-sm">{error}</p>
         )}

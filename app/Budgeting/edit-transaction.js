@@ -16,7 +16,7 @@ export default function TransactionList({ transactions, onRemove }) {
               <div className="flex-1">
                 <p className="font-semibold text-slate-700">{t.category}</p>
                 <p className="text-xs text-slate-500">
-                  {t.date.toLocaleDateString()}
+                  {new Date(t.date).toLocaleDateString()}
                 </p>
               </div>
               <div className="flex items-center gap-3">
