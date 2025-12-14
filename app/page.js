@@ -9,9 +9,12 @@ import QuoteBox from "./Journaling/quote-box";
 import Protected from "./components/Protected";
 
 export default function Page() {
-  const [tasks, setTasks] = useState([]);
-  const [transactions, setTransactions] = useState([]);
-  
+  const [tasks] = useState([]);
+    const [transactions] = useState(() => {
+    if (typeof window === "undefined") return [];
+    const stored = localStorage.getItem("transactions");
+    return stored ? JSON.parse(stored) : [];
+  });
 
   return (
     <Protected>
