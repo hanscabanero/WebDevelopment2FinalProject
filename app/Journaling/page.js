@@ -39,10 +39,10 @@ export default function JournalingSystem() {
     setEditingEntry(null);
   };
 
-  // delete journal entry
-  const deleteEntry = (id) => {
-    setEntries(entries.filter(e => e.id !== id));
-  };
+ // Delete entry
+const deleteEntry = (id) => {
+  setEntries((prev) => prev.filter((entry) => entry.id !== id));
+};
 
   return (
     <div className="min-h-screen flex">
