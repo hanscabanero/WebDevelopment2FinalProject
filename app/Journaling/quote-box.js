@@ -20,7 +20,7 @@ export default function QuoteBox() {
     // Else Fetch a new quote using API route
     async function fetchQuote() {
       try {
-        const res = await fetch("/api/quotes/route.js");
+        const res = await fetch("/api/quotes");
         const data = await res.json();
         const newQuote = `${data[0].q} — ${data[0].a}`;
 
