@@ -1,0 +1,11 @@
+[
+  {
+    "id": "uuid",
+    "title": "Example",
+    "category": "Work",
+    "dueDate": "2025-12-20",
+    "priority": "medium",
+    "completed": false,
+    "isHoliday": false
+  }
+]
