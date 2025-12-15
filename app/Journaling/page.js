@@ -5,6 +5,7 @@ import JournalForm from "./journal-form";
 import JournalList from "./journal-list";
 import QuoteBox from "./quote-box";
 import Sidebar from "../components/sidebar";
+import Protected from "../components/Protected";
 
 export default function JournalingSystem() {
   
@@ -46,6 +47,7 @@ const deleteEntry = (id) => {
 };
 
   return (
+    <Protected>
     <div className="min-h-screen flex">
       <Sidebar />
 
@@ -69,5 +71,6 @@ const deleteEntry = (id) => {
         </div>
       </div>
     </div>
+    </Protected>
   );
 }
