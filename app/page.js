@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import TaskSummary from "./task-management/task-summary";
@@ -8,13 +8,31 @@ import BudgetSummary from "./Budgeting/summary";
 import QuoteBox from "./Journaling/quote-box";
 import Protected from "./components/Protected";
 
+const TASKS_KEY = "tasks";
+
 export default function Page() {
-  const [tasks] = useState([]);
-    const [transactions] = useState(() => {
-    if (typeof window === "undefined") return [];
-    const stored = localStorage.getItem("transactions");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [tasks, setTasks] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem(TASKS_KEY);
+    if (storedTasks) {
+      try {
+        setTasks(JSON.parse(storedTasks));
+      } catch {
+        setTasks([]);
+      }
+    }
+
+    const storedTransactions = localStorage.getItem("transactions");
+    if (storedTransactions) {
+      try {
+        setTransactions(JSON.parse(storedTransactions));
+      } catch {
+        setTransactions([]);
+      }
+    }
+  }, []);
 
   return (
     <Protected>
