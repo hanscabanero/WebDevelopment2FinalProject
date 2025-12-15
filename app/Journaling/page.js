@@ -1,60 +1,73 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import JournalForm from "./journal-form";
-import QuoteBox from "./quote-box";
 import JournalList from "./journal-list";
+import QuoteBox from "./quote-box";
 import Sidebar from "../components/sidebar";
-import Protected from "../components/Protected";
 
 export default function JournalingSystem() {
-  const [entries, setEntries] = useState([]);
+  
+  // Load journals from localStorage
+  const [entries, setEntries] = useState(() => {
+    if (typeof window === "undefined") return [];
+    const stored = localStorage.getItem("journalEntries");
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const [editingEntry, setEditingEntry] = useState(null);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("journalEntries");
-    if (saved) setEntries(JSON.parse(saved));
-  }, []);
-
+  // Persist journals to localStorage
   useEffect(() => {
     localStorage.setItem("journalEntries", JSON.stringify(entries));
   }, [entries]);
 
+  // add new journal entry
   const addEntry = (entry) => {
-    const newEntry = { id: Date.now(), ...entry };
-    setEntries((prev) => [newEntry, ...prev]);
+    const newEntry = {
+      id: Date.now(),
+      title: entry.title,
+      content: entry.content,
+      datetime: new Date().toLocaleString(),
+    };
+
+    setEntries([newEntry, ...entries]);
   };
 
+  // update existing journal entry
   const updateEntry = (updated) => {
-    setEntries((prev) =>
-      prev.map((e) => (e.id === updated.id ? updated : e))
-    );
+    setEntries(entries.map(e => (e.id === updated.id ? updated : e)));
     setEditingEntry(null);
   };
 
+ // Delete entry
+const deleteEntry = (id) => {
+  setEntries((prev) => prev.filter((entry) => entry.id !== id));
+};
+
   return (
-    <Protected>
-      <div className="min-h-screen flex">
+    <div className="min-h-screen flex">
       <Sidebar />
-      <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
+
+      <div className="flex-1 min-h-screen bg-linear-to-br from-slate-100 to-slate-200 p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          <JournalForm 
-            onAdd={addEntry} 
+
+          <JournalForm
+            onAdd={addEntry}
             onUpdate={updateEntry}
             editingEntry={editingEntry}
           />
 
-          <JournalList 
-            entries={entries} 
+          <JournalList
+            entries={entries}
             onEdit={setEditingEntry}
+            onDelete={deleteEntry}
           />
 
-          <QuoteBox/>
+          <QuoteBox />
 
         </div>
       </div>
     </div>
-    </Protected>
-  
   );
 }
